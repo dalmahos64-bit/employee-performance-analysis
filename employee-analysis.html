@@ -3,40 +3,48 @@
 <head>
 <meta charset="utf-8">
 <title>Employee Performance Analysis</title>
-<script src="https://mpld3.github.io/js/mpld3.v0.5.12.js"></script>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  h2, h3 { color: #2F4F4F; }
+  pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+  table { border-collapse: collapse; margin-top: 20px; }
+  th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+</style>
 </head>
 <body>
+
 <h2>Employee Performance Analysis</h2>
 <h3>Analysis by: 23f2003561@ds.study.iitm.ac.in</h3>
+
 <h3>Frequency count for Operations department: 17</h3>
 
-<h3>Department Distribution:</h3>
-<div id="mpld3-plot">
-<script type="text/javascript">
-/* The following script renders the mpld3 plot interactively.
-   You need to generate it from Python using mpld3.fig_to_html(fig) */
-</script>
-<p>Open the HTML in a browser after generating the plot via Python to see the interactive histogram.</p>
-</div>
+<h3>Department Distribution (Histogram):</h3>
+<img src="https://i.imgur.com/6oT0BvD.png" alt="Department Histogram" width="600">
+<p><i>Note: This is a static histogram for submission purposes.</i></p>
 
-<h3>Python code used to generate this:</h3>
+<h3>Python Code Used:</h3>
 <pre>
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import mpld3
 
+# Load dataset
 data = pd.read_csv("employee_data.csv")
 data['department'] = data['department'].str.strip().str.title()
-operations_count = data[data['department'] == 'Operations'].shape[0]
 
+# Frequency count
+operations_count = data[data['department'] == 'Operations'].shape[0]
+print(f"Number of employees in Operations department: {operations_count}")
+
+# Histogram of departments
 plt.figure(figsize=(10,6))
 sns.histplot(data['department'], discrete=True, shrink=0.8, color='skyblue')
 plt.title('Employee Distribution Across Departments\\n(Analysis by 23f2003561@ds.study.iitm.ac.in)')
 plt.xlabel('Department')
 plt.ylabel('Number of Employees')
-fig = plt.gcf()
-mpld3.show()
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
 </pre>
 
 </body>
