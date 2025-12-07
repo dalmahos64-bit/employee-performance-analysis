@@ -1,52 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Employee Performance Analysis</title>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://mpld3.github.io/js/mpld3.v0.5.12.js"></script>
+    <meta charset="UTF-8">
+    <title>Employee Performance Analysis</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://mpld3.github.io/js/mpld3.v0.5.12.js"></script>
 </head>
 <body>
+    <h1>Employee Performance Analysis</h1>
+    <h3>Analysis by: 23f2003561@ds.study.iitm.ac.in</h3>
 
-<h1>Employee Performance Analysis</h1>
-<p>Analysis by: 23f2003561@ds.study.iitm.ac.in</p>
+    <h2>Python Code</h2>
+    <pre>
+# Employee Performance Analysis
+# Analysis by: 23f2003561@ds.study.iitm.ac.in
 
-<h2>Python Code</h2>
-<pre>
 import pandas as pd
 import matplotlib.pyplot as plt
 import mpld3
 
-# Dataset
+# Sample dataset
 data = {
     "EmployeeID": range(1, 101),
     "Department": ["Operations", "HR", "Finance", "IT", "Marketing"]*20,
     "Region": ["North", "South", "East", "West", "Central"]*20
 }
+
 df = pd.DataFrame(data)
 
-# Frequency count for Operations
+# Frequency count for 'Operations' department
 ops_count = (df["Department"] == "Operations").sum()
 print("Frequency Count for 'Operations' Department:", ops_count)
 
-# Histogram
+# Histogram of department distribution
 plt.figure(figsize=(8,5))
-plt.hist(df["Department"], bins=len(df["Department"].unique()))
+plt.hist(df["Department"], bins=len(df["Department"].unique()), color='skyblue', edgecolor='black')
 plt.title("Department Distribution Histogram")
 plt.xlabel("Department")
 plt.ylabel("Count")
-plt.text(0.5, -0.25, "Analysis by: 23f2003561@ds.study.iitm.ac.in", 
+plt.text(0.5, -0.25, "Analysis by: 23f2003561@ds.study.iitm.ac.in",
          ha='center', va='top', transform=plt.gca().transAxes)
 
-mpld3.show()
-</pre>
+# Save interactive plot as HTML
+mpld3.save_html(plt.gcf(), "employee_analysis.html")
+    </pre>
 
-<h2>Interactive Histogram</h2>
-<div id="fig_el389272f9cc355-fdc9-4d02-a398-d005d79d41e7"></div>
+    <h2>Interactive Department Distribution Histogram</h2>
+    <div id="mpld3_fig"></div>
+    <script>
+        // Data for the histogram (matches the Python example)
+        var data = {
+            labels: ["Operations", "HR", "Finance", "IT", "Marketing"],
+            counts: [20, 20, 20, 20, 20]
+        };
 
-<script>
-// Paste the mpld3 JSON/JS figure here (from your saved HTML)
-</script>
+        // Create SVG element
+        var width = 600, height = 400;
+        var svg = d3.select("#mpld3_fig")
+                    .append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
 
+        // Scales
+        var x = d3.scaleBand().domain(data.labels).range([50, width-50]).padding(0.2);
+        var y = d3.scaleLinear().domain([0, d3.max(data.counts)]).range([height-50, 50]);
+
+        // Bars
+        svg.selectAll("rect")
+           .data(data.counts)
+           .enter()
+           .append("rect")
+           .attr("x", (d,i) => x(data.labels[i]))
+           .attr("y", d => y(d))
+           .attr("width", x.bandwidth())
+           .attr("height", d => height-50 - y(d))
+           .attr("fill", "skyblue");
+
+        // Axes
+        var xAxis = d3.axisBottom(x);
+        var yAxis = d3.axisLeft(y);
+
+        svg.append("g").attr("transform", `translate(0, ${height-50})`).call(xAxis);
+        svg.append("g").attr("transform", `translate(50, 0)`).call(yAxis);
+
+        // Title
+        svg.append("text")
+           .attr("x", width/2)
+           .attr("y", 30)
+           .attr("text-anchor", "middle")
+           .style("font-size", "16px")
+           .text("Department Distribution Histogram");
+    </script>
 </body>
 </html>
