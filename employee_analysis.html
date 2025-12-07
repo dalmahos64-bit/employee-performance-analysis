@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Employee Performance Analysis</title>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://mpld3.github.io/js/mpld3.v0.5.12.js"></script>
+  <meta charset="UTF-8">
+  <title>Employee Performance Analysis</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://mpld3.github.io/js/mpld3.v0.5.12.js"></script>
 </head>
 <body>
-    <h1>Employee Performance Analysis</h1>
-    <p>Analysis by: 23f2003561@ds.study.iitm.ac.in</p>
 
-    <h2>Python Code Used</h2>
-    <pre>
+<h1>Employee Performance Analysis</h1>
+<p>Analysis by: 23f2003561@ds.study.iitm.ac.in</p>
+
+<h2>Python Code</h2>
+<pre>
 import pandas as pd
 import matplotlib.pyplot as plt
 import mpld3
 
-# Create dataset
+# Dataset
 data = {
     "EmployeeID": range(1, 101),
     "Department": ["Operations", "HR", "Finance", "IT", "Marketing"]*20,
@@ -34,72 +35,18 @@ plt.hist(df["Department"], bins=len(df["Department"].unique()))
 plt.title("Department Distribution Histogram")
 plt.xlabel("Department")
 plt.ylabel("Count")
-
-# Add email inside plot
 plt.text(0.5, -0.25, "Analysis by: 23f2003561@ds.study.iitm.ac.in", 
          ha='center', va='top', transform=plt.gca().transAxes)
 
-# Save as HTML
-mpld3.save_html(plt.gcf(), "employee_analysis.html")
-    </pre>
+mpld3.show()
+</pre>
 
-    <h2>Interactive Histogram</h2>
-    <div id="fig_el3915307e50164-4ea8-4452-9dfb-15c1702fcf4f9758797379"></div>
+<h2>Interactive Histogram</h2>
+<div id="fig_el389272f9cc355-fdc9-4d02-a398-d005d79d41e7"></div>
 
-    <script>
-    // Data for the histogram (same as Python dataset)
-    var data01 = [
-        [0, 0.8, 1.6, 2.4, 3.2],
-        [0.8, 0.0, 1.6, 2.4, 3.2],
-        [0.8, 20.0, 1.6, 2.4, 3.2],
-        [0, 20.0, 0.8, 1.6, 2.4]
-    ];
+<script>
+// Paste the mpld3 JSON/JS figure here (from your saved HTML)
+</script>
 
-    mpld3.draw_figure("fig_el3915307e50164-4ea8-4452-9dfb-15c1702fcf4f9758797379", {
-        "width": 800,
-        "height": 500,
-        "axes": [{
-            "bbox": [0.125, 0.10999999999999999, 0.775, 0.77],
-            "xlim": [-0.2, 4.2],
-            "ylim": [0, 21],
-            "axes": [{
-                "position": "bottom",
-                "nticks": 5
-            }, {
-                "position": "left",
-                "nticks": 10
-            }],
-            "lines": [],
-            "paths": [],
-            "markers": [],
-            "texts": [{
-                "text": "Analysis by: 23f2003561@ds.study.iitm.ac.in",
-                "position": [0.5, -0.25],
-                "coordinates": "axes",
-                "h_anchor": "middle",
-                "v_baseline": "hanging"
-            }, {
-                "text": "Department Distribution Histogram",
-                "position": [0.5, 1.02],
-                "coordinates": "axes",
-                "h_anchor": "middle",
-                "v_baseline": "auto"
-            }, {
-                "text": "Department",
-                "position": [0.5, -0.076],
-                "coordinates": "axes",
-                "h_anchor": "middle",
-                "v_baseline": "hanging"
-            }, {
-                "text": "Count",
-                "position": [-0.074, 0.5],
-                "coordinates": "axes",
-                "h_anchor": "middle",
-                "v_baseline": "auto",
-                "rotation": -90
-            }]
-        }]
-    });
-    </script>
 </body>
 </html>
