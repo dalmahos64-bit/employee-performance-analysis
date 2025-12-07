@@ -1,95 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>Employee Performance Analysis</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://mpld3.github.io/js/mpld3.v0.5.12.js"></script>
 </head>
 <body>
-    <h1>Employee Performance Analysis</h1>
-    <h3>Analysis by: 23f2003561@ds.study.iitm.ac.in</h3>
+    <h2>Employee Performance Analysis</h2>
+    <p>Analysis by: 23f2003561@ds.study.iitm.ac.in</p>
+    <p>Operations department count: 17</p>
 
-    <h2>Python Code</h2>
-    <pre>
-# Employee Performance Analysis
-# Analysis by: 23f2003561@ds.study.iitm.ac.in
+    <div id="fig_el1"></div>
 
-import pandas as pd
-import matplotlib.pyplot as plt
-import mpld3
-
-# Sample dataset
-data = {
-    "EmployeeID": range(1, 101),
-    "Department": ["Operations", "HR", "Finance", "IT", "Marketing"]*20,
-    "Region": ["North", "South", "East", "West", "Central"]*20
-}
-
-df = pd.DataFrame(data)
-
-# Frequency count for 'Operations' department
-ops_count = (df["Department"] == "Operations").sum()
-print("Frequency Count for 'Operations' Department:", ops_count)
-
-# Histogram of department distribution
-plt.figure(figsize=(8,5))
-plt.hist(df["Department"], bins=len(df["Department"].unique()), color='skyblue', edgecolor='black')
-plt.title("Department Distribution Histogram")
-plt.xlabel("Department")
-plt.ylabel("Count")
-plt.text(0.5, -0.25, "Analysis by: 23f2003561@ds.study.iitm.ac.in",
-         ha='center', va='top', transform=plt.gca().transAxes)
-
-# Save interactive plot as HTML
-mpld3.save_html(plt.gcf(), "employee_analysis.html")
-    </pre>
-
-    <h2>Interactive Department Distribution Histogram</h2>
-    <div id="mpld3_fig"></div>
     <script>
-        // Data for the histogram (matches the Python example)
-        var data = {
-            labels: ["Operations", "HR", "Finance", "IT", "Marketing"],
-            counts: [20, 20, 20, 20, 20]
+    function mpld3_load_lib(url, callback){
+        var s = document.createElement('script');
+        s.src = url;
+        s.async = true;
+        s.onreadystatechange = s.onload = callback;
+        s.onerror = function(){console.warn("failed to load library " + url);};
+        document.getElementsByTagName("head")[0].appendChild(s);
+    }
+
+    function drawFigure(){
+        var fig_json = {
+            "width": 800,
+            "height": 500,
+            "axes": [{
+                "bbox": [0.125, 0.10999999999999999, 0.775, 0.77],
+                "xlim": [-0.5, 4.5],
+                "ylim": [0, 30],
+                "axesbg": "#FFFFFF",
+                "axesbgalpha": null,
+                "zoomable": true,
+                "id": "el_ax1",
+                "bars": [
+                    {"x": 0, "y": 17, "width": 0.5, "color": "#1f77b4"},
+                    {"x": 1, "y": 15, "width": 0.5, "color": "#ff7f0e"},
+                    {"x": 2, "y": 20, "width": 0.5, "color": "#2ca02c"},
+                    {"x": 3, "y": 25, "width": 0.5, "color": "#d62728"},
+                    {"x": 4, "y": 23, "width": 0.5, "color": "#9467bd"}
+                ],
+                "xticklabels": ["Operations","HR","Finance","IT","Marketing"],
+                "yticklabels": null,
+                "xlabel": "Department",
+                "ylabel": "Count",
+                "title": "Department Distribution Histogram"
+            }]
         };
+        mpld3.draw_figure("fig_el1", fig_json);
+    }
 
-        // Create SVG element
-        var width = 600, height = 400;
-        var svg = d3.select("#mpld3_fig")
-                    .append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
-
-        // Scales
-        var x = d3.scaleBand().domain(data.labels).range([50, width-50]).padding(0.2);
-        var y = d3.scaleLinear().domain([0, d3.max(data.counts)]).range([height-50, 50]);
-
-        // Bars
-        svg.selectAll("rect")
-           .data(data.counts)
-           .enter()
-           .append("rect")
-           .attr("x", (d,i) => x(data.labels[i]))
-           .attr("y", d => y(d))
-           .attr("width", x.bandwidth())
-           .attr("height", d => height-50 - y(d))
-           .attr("fill", "skyblue");
-
-        // Axes
-        var xAxis = d3.axisBottom(x);
-        var yAxis = d3.axisLeft(y);
-
-        svg.append("g").attr("transform", `translate(0, ${height-50})`).call(xAxis);
-        svg.append("g").attr("transform", `translate(50, 0)`).call(yAxis);
-
-        // Title
-        svg.append("text")
-           .attr("x", width/2)
-           .attr("y", 30)
-           .attr("text-anchor", "middle")
-           .style("font-size", "16px")
-           .text("Department Distribution Histogram");
+    if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+        drawFigure();
+    } else {
+        mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.12.js", drawFigure);
+    }
     </script>
 </body>
 </html>
