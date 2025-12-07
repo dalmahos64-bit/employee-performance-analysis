@@ -1,45 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Performance Analysis</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://mpld3.github.io/js/mpld3.v0.5.12.js"></script>
+</head>
+<body>
+    <h1>Employee Performance Analysis</h1>
+    <p>Analysis by: 23f2003561@ds.study.iitm.ac.in</p>
 
+    <h2>Python Code Used</h2>
+    <pre>
+import pandas as pd
+import matplotlib.pyplot as plt
+import mpld3
 
-<style>
-
-</style>
-<div>
-    Analysis by: 23f2003561@ds.study.iitm.ac.in
-</div>
-<div id="fig_el389272f9cc355-fdc9-4d02-a398-d005d79d41e71657314814"></div>
-<script>
-function mpld3_load_lib(url, callback){
-  var s = document.createElement('script');
-  s.src = url;
-  s.async = true;
-  s.onreadystatechange = s.onload = callback;
-  s.onerror = function(){console.warn("failed to load library " + url);};
-  document.getElementsByTagName("head")[0].appendChild(s);
+# Create dataset
+data = {
+    "EmployeeID": range(1, 101),
+    "Department": ["Operations", "HR", "Finance", "IT", "Marketing"]*20,
+    "Region": ["North", "South", "East", "West", "Central"]*20
 }
+df = pd.DataFrame(data)
 
-if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
-   // already loaded: just create the figure
-   !function(mpld3){
-       
-       mpld3.draw_figure("fig_el389272f9cc355-fdc9-4d02-a398-d005d79d41e71657314814", {"width": 1600.0, "height": 1000.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.20000000000000007, 4.2], "ylim": [0.0, 21.0], "xdomain": [-0.20000000000000007, 4.2], "ydomain": [0.0, 21.0], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 5, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el38927ea4f7a1e-02f6-493f-a4a8-8b0a214bf298", "lines": [], "paths": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927d473afbc-672f-4822-9a2c-8fa7699c8524", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 2, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el3892741ff0319-9678-4985-aade-cb88f1ee064a", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 3, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927a7a432d1-080b-41db-b41c-7d7031cf2c8f", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 4, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927817164f1-a1ea-4786-be18-d4df6dc336d4", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 5, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927e7452542-af37-4199-befa-4fc67ea0ff5e", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}], "markers": [], "texts": [{"text": "Analysis by: 23f2003561@ds.study.iitm.ac.in", "position": [0.5, -0.25], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el389278f79a91f-23a8-4548-95e3-020e050fe383"}, {"text": "Department", "position": [0.5, -0.07604617604617606], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el3892714fb2b1a-faf5-467d-8c39-5e3db448c022"}, {"text": "Count", "position": [-0.07464157706093191, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el38927176500bf-68ca-4aa8-8b8a-14624075f480"}, {"text": "Department Distribution Histogram", "position": [0.5, 1.0216450216450217], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el3892714182c38-c6ea-42de-8009-c5ea18e7235c"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[-5.551115123125783e-17, 0.0, 0.8, 1.5999999999999999, 2.4000000000000004, 3.2], [0.8, 0.0, 1.6, 2.4, 3.2, 4.0], [0.8, 20.0, 1.6, 2.4, 3.2, 4.0], [-5.551115123125783e-17, 20.0, 0.8, 1.5999999999999999, 2.4000000000000004, 3.2]]}, "id": "el389272f9cc355-fdc9-4d02-a398-d005d79d41e7", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
-   }(mpld3);
-}else if(typeof define === "function" && define.amd){
-   // require.js is available: use it to load d3/mpld3
-   require.config({paths: {d3: "https://d3js.org/d3.v5"}});
-   require(["d3"], function(d3){
-      window.d3 = d3;
-      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.12.js", function(){
-         
-         mpld3.draw_figure("fig_el389272f9cc355-fdc9-4d02-a398-d005d79d41e71657314814", {"width": 1600.0, "height": 1000.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.20000000000000007, 4.2], "ylim": [0.0, 21.0], "xdomain": [-0.20000000000000007, 4.2], "ydomain": [0.0, 21.0], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 5, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el38927ea4f7a1e-02f6-493f-a4a8-8b0a214bf298", "lines": [], "paths": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927d473afbc-672f-4822-9a2c-8fa7699c8524", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 2, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el3892741ff0319-9678-4985-aade-cb88f1ee064a", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 3, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927a7a432d1-080b-41db-b41c-7d7031cf2c8f", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 4, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927817164f1-a1ea-4786-be18-d4df6dc336d4", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 5, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927e7452542-af37-4199-befa-4fc67ea0ff5e", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}], "markers": [], "texts": [{"text": "Analysis by: 23f2003561@ds.study.iitm.ac.in", "position": [0.5, -0.25], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el389278f79a91f-23a8-4548-95e3-020e050fe383"}, {"text": "Department", "position": [0.5, -0.07604617604617606], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el3892714fb2b1a-faf5-467d-8c39-5e3db448c022"}, {"text": "Count", "position": [-0.07464157706093191, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el38927176500bf-68ca-4aa8-8b8a-14624075f480"}, {"text": "Department Distribution Histogram", "position": [0.5, 1.0216450216450217], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el3892714182c38-c6ea-42de-8009-c5ea18e7235c"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[-5.551115123125783e-17, 0.0, 0.8, 1.5999999999999999, 2.4000000000000004, 3.2], [0.8, 0.0, 1.6, 2.4, 3.2, 4.0], [0.8, 20.0, 1.6, 2.4, 3.2, 4.0], [-5.551115123125783e-17, 20.0, 0.8, 1.5999999999999999, 2.4000000000000004, 3.2]]}, "id": "el389272f9cc355-fdc9-4d02-a398-d005d79d41e7", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
-      });
+# Frequency count for Operations
+ops_count = (df["Department"] == "Operations").sum()
+print("Frequency Count for 'Operations' Department:", ops_count)
+
+# Histogram
+plt.figure(figsize=(8,5))
+plt.hist(df["Department"], bins=len(df["Department"].unique()))
+plt.title("Department Distribution Histogram")
+plt.xlabel("Department")
+plt.ylabel("Count")
+
+# Add email inside plot
+plt.text(0.5, -0.25, "Analysis by: 23f2003561@ds.study.iitm.ac.in", 
+         ha='center', va='top', transform=plt.gca().transAxes)
+
+# Save as HTML
+mpld3.save_html(plt.gcf(), "employee_analysis.html")
+    </pre>
+
+    <h2>Interactive Histogram</h2>
+    <div id="fig_el3915307e50164-4ea8-4452-9dfb-15c1702fcf4f9758797379"></div>
+
+    <script>
+    // Data for the histogram (same as Python dataset)
+    var data01 = [
+        [0, 0.8, 1.6, 2.4, 3.2],
+        [0.8, 0.0, 1.6, 2.4, 3.2],
+        [0.8, 20.0, 1.6, 2.4, 3.2],
+        [0, 20.0, 0.8, 1.6, 2.4]
+    ];
+
+    mpld3.draw_figure("fig_el3915307e50164-4ea8-4452-9dfb-15c1702fcf4f9758797379", {
+        "width": 800,
+        "height": 500,
+        "axes": [{
+            "bbox": [0.125, 0.10999999999999999, 0.775, 0.77],
+            "xlim": [-0.2, 4.2],
+            "ylim": [0, 21],
+            "axes": [{
+                "position": "bottom",
+                "nticks": 5
+            }, {
+                "position": "left",
+                "nticks": 10
+            }],
+            "lines": [],
+            "paths": [],
+            "markers": [],
+            "texts": [{
+                "text": "Analysis by: 23f2003561@ds.study.iitm.ac.in",
+                "position": [0.5, -0.25],
+                "coordinates": "axes",
+                "h_anchor": "middle",
+                "v_baseline": "hanging"
+            }, {
+                "text": "Department Distribution Histogram",
+                "position": [0.5, 1.02],
+                "coordinates": "axes",
+                "h_anchor": "middle",
+                "v_baseline": "auto"
+            }, {
+                "text": "Department",
+                "position": [0.5, -0.076],
+                "coordinates": "axes",
+                "h_anchor": "middle",
+                "v_baseline": "hanging"
+            }, {
+                "text": "Count",
+                "position": [-0.074, 0.5],
+                "coordinates": "axes",
+                "h_anchor": "middle",
+                "v_baseline": "auto",
+                "rotation": -90
+            }]
+        }]
     });
-}else{
-    // require.js not available: dynamically load d3 & mpld3
-    mpld3_load_lib("https://d3js.org/d3.v5.js", function(){
-         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.12.js", function(){
-                 
-                 mpld3.draw_figure("fig_el389272f9cc355-fdc9-4d02-a398-d005d79d41e71657314814", {"width": 1600.0, "height": 1000.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.20000000000000007, 4.2], "ylim": [0.0, 21.0], "xdomain": [-0.20000000000000007, 4.2], "ydomain": [0.0, 21.0], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 5, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el38927ea4f7a1e-02f6-493f-a4a8-8b0a214bf298", "lines": [], "paths": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927d473afbc-672f-4822-9a2c-8fa7699c8524", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 2, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el3892741ff0319-9678-4985-aade-cb88f1ee064a", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 3, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927a7a432d1-080b-41db-b41c-7d7031cf2c8f", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 4, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927817164f1-a1ea-4786-be18-d4df6dc336d4", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}, {"data": "data01", "xindex": 5, "yindex": 1, "coordinates": "data", "pathcodes": ["M", "L", "L", "L", "Z"], "id": "el38927e7452542-af37-4199-befa-4fc67ea0ff5e", "dasharray": "none", "alpha": 1, "facecolor": "#1F77B4", "edgecolor": "none", "edgewidth": 1.0, "zorder": 1}], "markers": [], "texts": [{"text": "Analysis by: 23f2003561@ds.study.iitm.ac.in", "position": [0.5, -0.25], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el389278f79a91f-23a8-4548-95e3-020e050fe383"}, {"text": "Department", "position": [0.5, -0.07604617604617606], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el3892714fb2b1a-faf5-467d-8c39-5e3db448c022"}, {"text": "Count", "position": [-0.07464157706093191, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el38927176500bf-68ca-4aa8-8b8a-14624075f480"}, {"text": "Department Distribution Histogram", "position": [0.5, 1.0216450216450217], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el3892714182c38-c6ea-42de-8009-c5ea18e7235c"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[-5.551115123125783e-17, 0.0, 0.8, 1.5999999999999999, 2.4000000000000004, 3.2], [0.8, 0.0, 1.6, 2.4, 3.2, 4.0], [0.8, 20.0, 1.6, 2.4, 3.2, 4.0], [-5.551115123125783e-17, 20.0, 0.8, 1.5999999999999999, 2.4000000000000004, 3.2]]}, "id": "el389272f9cc355-fdc9-4d02-a398-d005d79d41e7", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
-            })
-         });
-}
-</script>
+    </script>
+</body>
+</html>
